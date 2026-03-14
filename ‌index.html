@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Armani Smith-Gibbs — Physics Researcher & AI Model Specialist. M.Sc. Physics. AI Trainer at Scale AI. Based in Stone Mountain, Georgia."/>
+<title>Armani Smith-Gibbs | Physics Researcher & AI Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:        #080810;
+  --surface:   #0f0f1a;
+  --surface2:  #161625;
+  --gold:      #d4a84b;
+  --gold-lite: #ecc97a;
+  --gold-dim:  rgba(212,168,75,0.12);
+  --text:      #ece9e0;
+  --muted:     #7a7892;
+  --border:    rgba(212,168,75,0.18);
+  --green:     #4ade80;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;}
+
+/* CURSOR */
+#cur,#cur-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#cur{width:8px;height:8px;background:var(--gold);border-radius:50%;}
+#cur-ring{width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;opacity:.4;transition:all .15s ease;}
+
+/* STARS */
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 5rem;background:rgba(8,8,16,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:padding .3s;}
+nav.scrolled{padding:1rem 5rem;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--gold);letter-spacing:.06em;text-decoration:none;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;font-weight:500;transition:color .25s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:none;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--gold);transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:190;background:rgba(8,8,16,.97);backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:600;color:var(--text);text-decoration:none;transition:color .25s;}
+.mobile-menu a:hover{color:var(--gold);}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 420px;align-items:center;gap:4rem;padding:9rem 5rem 5rem;position:relative;z-index:1;}
+.hero::before{content:'';position:absolute;top:10%;right:5%;width:500px;height:500px;background:radial-gradient(circle,rgba(212,168,75,.07) 0%,transparent 70%);pointer-events:none;}
+.chip{display:inline-flex;align-items:center;gap:.5rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:.35rem .85rem;margin-bottom:1.8rem;opacity:0;animation:fadeUp .7s .1s ease forwards;}
+.chip-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(3.8rem,6.5vw,6.5rem);font-weight:700;line-height:.95;letter-spacing:-.02em;color:#fff;margin-bottom:.6rem;opacity:0;animation:fadeUp .8s .25s ease forwards;}
+.hero-name em{color:var(--gold);font-style:italic;}
+.hero-sub{font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:400;margin-bottom:2rem;opacity:0;animation:fadeUp .8s .4s ease forwards;}
+.hero-bio{font-size:1.02rem;line-height:1.85;color:var(--text);max-width:520px;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s .55s ease forwards;}
+.cta-row{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .7s ease forwards;}
+.btn{display:inline-block;padding:.9rem 2.2rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:all .3s;cursor:none;font-family:'Inter',sans-serif;}
+.btn-gold{background:var(--gold);color:var(--bg);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+.btn-gold:hover{background:var(--gold-lite);transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--gold);border:1px solid var(--border);}
+.btn-outline:hover{border-color:var(--gold);background:var(--gold-dim);}
+.stats{display:flex;gap:2.5rem;margin-top:3.5rem;opacity:0;animation:fadeUp .8s .85s ease forwards;}
+.stat{border-left:2px solid var(--gold);padding-left:1rem;}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1;}
+.stat-l{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.3rem;}
+
+/* HERO PHOTO */
+.hero-photo{position:relative;opacity:0;animation:fadeIn 1.2s .6s ease forwards;}
+.photo-wrap{position:relative;width:100%;padding-bottom:120%;background:linear-gradient(145deg,var(--surface2),var(--surface));overflow:hidden;}
+.photo-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;filter:grayscale(15%) contrast(1.05);}
+.photo-initials{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:7rem;font-weight:700;color:var(--gold);opacity:.1;letter-spacing:-.04em;}
+.photo-border{position:absolute;top:-12px;left:-12px;right:12px;bottom:12px;border:1px solid rgba(212,168,75,.35);pointer-events:none;z-index:2;}
+.avail-badge{position:absolute;bottom:-16px;left:16px;z-index:3;background:var(--gold);color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.16em;padding:.45rem 1rem;}
+
+/* SECTIONS */
+.section{padding:7rem 5rem;position:relative;z-index:1;}
+.section-alt{background:var(--surface);}
+.s-tag{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;}
+.s-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4vw,3.8rem);font-weight:700;line-height:1.05;color:#fff;margin-bottom:.8rem;}
+.s-title em{color:var(--gold);font-style:italic;}
+.s-rule{width:48px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:3rem;}
+.s-rule.center{margin-left:auto;margin-right:auto;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:5rem;align-items:start;max-width:1100px;margin:0 auto;}
+.about-text p{font-size:1rem;line-height:1.9;color:var(--text);margin-bottom:1.4rem;}
+.about-text p:first-of-type::first-letter{font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:700;color:var(--gold);float:left;line-height:.8;margin-right:.12em;margin-top:.08em;}
+.info-cards{display:flex;flex-direction:column;gap:1rem;}
+.ic{background:var(--bg);border:1px solid var(--border);padding:1.2rem 1.5rem;position:relative;}
+.ic::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold);}
+.ic-lbl{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;}
+.ic-val{font-size:.9rem;color:var(--text);font-weight:500;}
+
+/* EXPERIENCE */
+.exp-wrap{max-width:960px;margin:0 auto;}
+.exp-item{display:grid;grid-template-columns:180px 1fr;padding:2.8rem 0;border-bottom:1px solid rgba(255,255,255,.04);position:relative;}
+.exp-item:last-child{border-bottom:none;}
+.exp-line{position:absolute;left:180px;top:0;bottom:0;width:1px;background:var(--border);}
+.exp-dot{position:absolute;left:180px;top:2.8rem;width:10px;height:10px;background:var(--gold);border-radius:50%;transform:translateX(-50%);box-shadow:0 0 0 3px var(--bg),0 0 0 5px rgba(212,168,75,.3);}
+.exp-meta{padding-right:2rem;text-align:right;}
+.exp-date{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--gold);letter-spacing:.04em;margin-bottom:.5rem;line-height:1.6;}
+.exp-co{font-size:.82rem;color:var(--muted);line-height:1.5;}
+.exp-loc{font-size:.72rem;color:var(--muted);opacity:.6;margin-top:.2rem;}
+.exp-body{padding-left:3rem;}
+.exp-role{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:1rem;}
+.exp-bullets{list-style:none;}
+.exp-bullets li{font-size:.9rem;line-height:1.75;color:var(--text);padding:.28rem 0 .28rem 1.2rem;position:relative;}
+.exp-bullets li::before{content:'▸';position:absolute;left:0;top:.38rem;color:var(--gold);font-size:.65rem;}
+.tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(212,168,75,.25);padding:.25rem .65rem;}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto;}
+.sk-card{background:var(--bg);border:1px solid var(--border);padding:2rem;position:relative;overflow:hidden;transition:transform .3s,border-color .3s;}
+.sk-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width .4s;}
+.sk-card:hover{transform:translateY(-4px);border-color:rgba(212,168,75,.45);}
+.sk-card:hover::after{width:100%;}
+.sk-icon{font-size:1.6rem;margin-bottom:1rem;}
+.sk-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:1rem;}
+.sk-list{list-style:none;}
+.sk-list li{font-size:.83rem;color:var(--muted);padding:.32rem 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:.55rem;}
+.sk-list li::before{content:'';width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+
+/* COMPETENCIES */
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:1100px;margin:0 auto;}
+.comp{background:var(--surface2);border:1px solid var(--border);padding:1.2rem 1.5rem;font-size:.85rem;color:var(--text);display:flex;align-items:center;gap:.75rem;transition:background .3s,border-color .3s;}
+.comp:hover{background:var(--gold-dim);border-color:rgba(212,168,75,.4);}
+.comp::before{content:'◆';color:var(--gold);font-size:.5rem;flex-shrink:0;}
+
+/* EDUCATION */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:960px;margin:0 auto;}
+.edu-card{background:var(--surface2);border:1px solid var(--border);padding:2.5rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
+.edu-card:hover{border-color:rgba(212,168,75,.45);transform:translateY(-3px);}
+.edu-card::before{content:attr(data-year);position:absolute;top:1.2rem;right:1.5rem;font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:700;color:var(--gold);opacity:.06;line-height:1;}
+.edu-deg{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:.4rem;}
+.edu-field{font-size:.85rem;color:var(--gold);font-weight:600;margin-bottom:.9rem;}
+.edu-school{font-size:.83rem;color:var(--muted);line-height:1.6;}
+.edu-yr{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);margin-top:.9rem;letter-spacing:.1em;}
+
+/* CONTACT */
+.contact-inner{max-width:720px;margin:0 auto;text-align:center;}
+.contact-desc{font-size:1rem;line-height:1.85;color:var(--muted);margin-bottom:3rem;}
+.contact-grid{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;}
+.contact-card{background:var(--surface2);border:1px solid var(--border);padding:1.5rem 2rem;text-decoration:none;transition:all .3s;min-width:170px;cursor:none;}
+.contact-card:hover{border-color:var(--gold);background:var(--gold-dim);transform:translateY(-3px);}
+.cc-icon{font-size:1.4rem;margin-bottom:.5rem;}
+.cc-lbl{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;}
+.cc-val{font-size:.8rem;color:var(--text);}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+.ft-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);}
+.ft-copy{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);}
+
+/* BACK TO TOP */
+#btt{position:fixed;bottom:2rem;right:2rem;z-index:300;width:40px;height:40px;background:var(--gold);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:none;opacity:0;pointer-events:none;transition:opacity .3s;clip-path:polygon(50% 0%,100% 100%,0% 100%);}
+#btt.show{opacity:1;pointer-events:all;}
+#btt:hover{background:var(--gold-lite);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  nav{padding:1.3rem 2rem;}
+  nav.scrolled{padding:.9rem 2rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .hero{grid-template-columns:1fr;padding:8rem 2rem 5rem;}
+  .hero-photo{display:none;}
+  .section{padding:5rem 2rem;}
+  .about-grid{grid-template-columns:1fr;gap:3rem;}
+  .exp-item{grid-template-columns:1fr;gap:.3rem;}
+  .exp-line,.exp-dot{display:none;}
+  .exp-meta{text-align:left;padding-right:0;margin-bottom:.5rem;}
+  .exp-body{padding-left:0;}
+  .edu-grid{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:1rem;text-align:center;padding:1.5rem 2rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<canvas id="stars"></canvas>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#experience" onclick="closeMenu()">Experience</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="#education" onclick="closeMenu()">Education</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">A · S · G</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div>
+    <div class="chip"><span class="chip-dot"></span>Available for Opportunities</div>
+    <h1 class="hero-name">Armani<br/><em>Smith-Gibbs</em></h1>
+    <p class="hero-sub">Physics Researcher &amp; AI Model Specialist</p>
+    <p class="hero-bio">Bridging the precision of physics with the frontier of artificial intelligence. I train large language models, engineer adversarial prompts, and conduct rigorous scientific research — applying academic discipline to every complex system I encounter.</p>
+    <div class="cta-row">
+      <a href="#experience" class="btn btn-gold">View My Work</a>
+      <a href="mailto:atsg789@hotmail.com" class="btn btn-outline">Get in Touch</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">4+</div><div class="stat-l">Years AI Training</div></div>
+      <div class="stat"><div class="stat-n">M.Sc.</div><div class="stat-l">Physics</div></div>
+      <div class="stat"><div class="stat-n">100+</div><div class="stat-l">Students Mentored</div></div>
+    </div>
+  </div>
+
+  <div class="hero-photo">
+    <div class="photo-border"></div>
+    <div class="photo-wrap">
+      <!-- To add your photo: rename your image file to "photo.jpg" and place it in the same folder as this HTML file -->
+      <img src="photo.jpg" alt="Armani Smith-Gibbs" onerror="this.style.display='none'"/>
+      <div class="photo-initials">ASG</div>
+    </div>
+    <div class="avail-badge">Available for Work</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section section-alt" id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p class="s-tag">— Who I Am</p>
+      <h2 class="s-title">Scientist.<br/><em>Educator.</em> Innovator.</h2>
+      <div class="s-rule"></div>
+      <p>A physicist by training and an AI specialist by practice, I hold a Master of Science in Physics from Eastern Kentucky University — a foundation built on analytical precision, experimental rigour, and deep problem-solving.</p>
+      <p>At Scale AI, I've spent years at the cutting edge of large language model development — designing adversarial prompts to stress-test reasoning, conducting comparative evaluations using detailed rubrics, and shaping models toward more natural, human-like responses. My work spans major initiatives including Mail Valley and White Wolf.</p>
+      <p>In parallel, I continue my research at Morehead State University, collaborating with faculty on physics-based projects spanning data analysis and theoretical modelling. My career is defined by one constant: applying scientific rigour to complex, evolving systems.</p>
+    </div>
+    <div class="info-cards reveal">
+      <div class="ic"><div class="ic-lbl">Location</div><div class="ic-val">Stone Mountain, Georgia, USA</div></div>
+      <div class="ic"><div class="ic-lbl">Current Role</div><div class="ic-val">AI Trainer — Scale AI (Remote)</div></div>
+      <div class="ic"><div class="ic-lbl">Research Base</div><div class="ic-val">Morehead State University, KY</div></div>
+      <div class="ic"><div class="ic-lbl">Specialisation</div><div class="ic-val">Prompt Engineering &amp; LLM Evaluation</div></div>
+      <div class="ic"><div class="ic-lbl">Email</div><div class="ic-val">atsg789@hotmail.com</div></div>
+      <div class="ic"><div class="ic-lbl">Status</div><div class="ic-val" style="color:var(--green)">● Open to Opportunities</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="exp-wrap">
+    <div class="reveal">
+      <p class="s-tag">— Career Timeline</p>
+      <h2 class="s-title">Professional <em>Experience</em></h2>
+      <div class="s-rule"></div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-line"></div><div class="exp-dot"></div>
+      <div class="exp-meta">
+        <div class="exp-date">Jan 2022 — Jan 2026</div>
+        <div class="exp-co">Scale AI</div>
+        <div class="exp-loc">Remote</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">AI Trainer</div>
+        <ul class="exp-bullets">
+          <li>Trained large language models through video annotation, image rating, and multimodal evaluation tasks</li>
+          <li>Designed adversarial prompts engineered to expose model reasoning weaknesses and force edge-case failures</li>
+          <li>Conducted rigorous side-by-side comparisons of AI model responses using detailed rubric-based justifications</li>
+          <li>Improved model naturalness and human-likeness through structured, targeted feedback loops</li>
+          <li>Contributed to high-impact projects Mail Valley and White Wolf, focused on reasoning performance optimisation</li>
+          <li>Participated in generalist AI training spanning reasoning, classification, and preference ranking</li>
+        </ul>
+        <div class="tags"><span class="tag">LLM Training</span><span class="tag">Prompt Engineering</span><span class="tag">Model Evaluation</span><span class="tag">Multimodal Annotation</span><span class="tag">Reasoning Assessment</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Nov 2022 — Present</div>
+        <div class="exp-co">Morehead State University</div>
+        <div class="exp-loc">Morehead, Kentucky</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Physics Researcher</div>
+        <ul class="exp-bullets">
+          <li>Conduct physics-based research with emphasis on data analysis and theoretical modelling</li>
+          <li>Assist in research documentation, experimental design, and preparation of academic publications</li>
+          <li>Collaborate with faculty and graduate students on interdisciplinary physics projects</li>
+          <li>Support laboratory data interpretation and produce rigorous scientific reporting</li>
+        </ul>
+        <div class="tags"><span class="tag">Physics Research</span><span class="tag">Data Analysis</span><span class="tag">Theoretical Modelling</span><span class="tag">Scientific Writing</span></div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Feb 2019 — Oct 2022</div>
+        <div class="exp-co">Morehead State University</div>
+        <div class="exp-loc">Morehead, Kentucky</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Assistant Lecturer — Physics</div>
+        <ul class="exp-bullets">
+          <li>Delivered undergraduate lectures in mechanics and electromagnetism to multiple course sections</li>
+          <li>Developed course materials, assignments, and examinations aligned with curriculum outcomes</li>
+          <li>Guided students through laboratory experiments and scientific problem-solving methodologies</li>
+          <li>Mentored over 100 undergraduate and graduate students in academic and research settings</li>
+          <li>Assisted senior faculty with curriculum delivery and ongoing academic research activities</li>
+        </ul>
+        <div class="tags"><span class="tag">University Teaching</span><span class="tag">Curriculum Design</span><span class="tag">Lab Instruction</span><span class="tag">Academic Mentoring</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section section-alt" id="skills">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="s-tag">— Expertise</p>
+      <h2 class="s-title">Skills &amp; <em>Capabilities</em></h2>
+      <div class="s-rule center"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="sk-card reveal">
+        <div class="sk-icon">🤖</div>
+        <div class="sk-name">AI & Machine Learning</div>
+        <ul class="sk-list"><li>AI Model Training &amp; Evaluation</li><li>Prompt Creation &amp; Engineering</li><li>LLM Reasoning Assessment</li><li>Response Ranking &amp; Preference</li><li>Multimodal Task Evaluation</li></ul>
+      </div>
+      <div class="sk-card reveal">
+        <div class="sk-icon">📊</div>
+        <div class="sk-name">Data & Annotation</div>
+        <ul class="sk-list"><li>Video Annotation &amp; Image Rating</li><li>Rubric-Based AI Assessment</li><li>Data Annotation &amp; QA Review</li><li>Comparative Analysis</li><li>Classification Tasks</li></ul>
+      </div>
+      <div class="sk-card reveal">
+        <div class="sk-icon">🔬</div>
+        <div class="sk-name">Scientific Research</div>
+        <ul class="sk-list"><li>Physics Research &amp; Modelling</li><li>Data Analysis &amp; Interpretation</li><li>Experimental Design</li><li>Scientific Writing &amp; Publication</li><li>Laboratory Methods</li></ul>
+      </div>
+      <div class="sk-card reveal">
+        <div class="sk-icon">🎓</div>
+        <div class="sk-name">Teaching & Communication</div>
+        <ul class="sk-list"><li>University-Level Instruction</li><li>Academic Mentoring</li><li>Curriculum Development</li><li>Complex Concept Communication</li><li>Cross-functional Collaboration</li></ul>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:3rem;">
+      <p class="s-tag" style="text-align:center;margin-bottom:1.5rem;">— Core Competencies</p>
+      <div class="comp-grid">
+        <div class="comp">Logical Reasoning Evaluation</div>
+        <div class="comp">Adversarial Prompt Design</div>
+        <div class="comp">Analytical Thinking</div>
+        <div class="comp">Scientific Data Interpretation</div>
+        <div class="comp">Problem Solving</div>
+        <div class="comp">Quality Assurance</div>
+        <div class="comp">Academic Research</div>
+        <div class="comp">Cross-domain Synthesis</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <div style="max-width:960px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="s-tag">— Academic Background</p>
+      <h2 class="s-title"><em>Education</em></h2>
+      <div class="s-rule center"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card reveal" data-year="2018">
+        <div class="edu-deg">Master of Science</div>
+        <div class="edu-field">Physics</div>
+        <div class="edu-school">Eastern Kentucky University<br/>Richmond, Kentucky</div>
+        <div class="edu-yr">Graduated 2018</div>
+      </div>
+      <div class="edu-card reveal" data-year="2015">
+        <div class="edu-deg">Bachelor of Science</div>
+        <div class="edu-field">Physics</div>
+        <div class="edu-school">Morehead State University<br/>Morehead, Kentucky</div>
+        <div class="edu-yr">Graduated 2015</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section section-alt" id="contact">
+  <div class="contact-inner reveal">
+    <p class="s-tag">— Let's Connect</p>
+    <h2 class="s-title">Get in <em>Touch</em></h2>
+    <div class="s-rule center"></div>
+    <p class="contact-desc">Open to new opportunities in AI research, model training, academic collaboration, and scientific consulting. Whether you have a project in mind or simply want to connect — I'd love to hear from you.</p>
+    <div class="contact-grid">
+      <a href="mailto:atsg789@hotmail.com" class="contact-card">
+        <div class="cc-icon">✉️</div>
+        <div class="cc-lbl">Email</div>
+        <div class="cc-val">atsg789@hotmail.com</div>
+      </a>
+      <div class="contact-card">
+        <div class="cc-icon">📍</div>
+        <div class="cc-lbl">Location</div>
+        <div class="cc-val">Stone Mountain, Georgia</div>
+      </div>
+      <div class="contact-card">
+        <div class="cc-icon">💼</div>
+        <div class="cc-lbl">Status</div>
+        <div class="cc-val" style="color:var(--green)">Available for Work</div>
+      </div>
+    </div>
+    <a href="mailto:atsg789@hotmail.com" class="btn btn-gold">Send a Message</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-name">Armani Smith-Gibbs</div>
+  <div class="ft-copy">© 2026 · Physics Researcher &amp; AI Specialist</div>
+</footer>
+
+<div id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</div>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  setTimeout(()=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';},55);
+});
+
+/* STARS */
+const canvas=document.getElementById('stars'),ctx=canvas.getContext('2d');
+let W,H,stars=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+function initStars(){stars=[];for(let i=0;i<180;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,a:Math.random(),sp:Math.random()*.004+.001});}
+function draw(){ctx.clearRect(0,0,W,H);stars.forEach(s=>{s.a+=s.sp;if(s.a>1)s.a=0;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(212,168,75,${s.a*.5})`;ctx.fill();});requestAnimationFrame(draw);}
+window.addEventListener('resize',()=>{resize();initStars();});
+resize();initStars();draw();
+
+/* REVEAL */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*70);});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* NAV */
+const navbar=document.getElementById('navbar');
+const secs=[...document.querySelectorAll('section[id]')];
+const links=[...document.querySelectorAll('.nav-links a')];
+window.addEventListener('scroll',()=>{
+  navbar.classList.toggle('scrolled',window.scrollY>40);
+  document.getElementById('btt').classList.toggle('show',window.scrollY>400);
+  let cur2='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-220)cur2=s.id;});
+  links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur2));
+});
+
+/* HAMBURGER */
+const ham=document.getElementById('hamburger'),mob=document.getElementById('mobileMenu');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open');});
+function closeMenu(){ham.classList.remove('open');mob.classList.remove('open');}
+</script>
+</body>
+</html>
